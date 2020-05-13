@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2 id="onm">On Mouse</h2>
+    <button onmouseout="getElementById('onm').innerHTML='Mouse is out'">Mouse Out</button> 
+    <button onmouseover="getElementById('onm').innerHTML='Mouse On'">Mouse on</button>
+    <button onmousemove="getElementById('onm').innerHTML='Mouse moved'">mouse moved</button>
+    <h1>Changing the Content by javascript</h1>
+    <h2 id="name">Hey I am Divay..</h2>
+    <button type="button" onclick="getElementById('name').innerHTML='Hey i am diksha..!!'">clickme</button>
+    <h1>Changing the Attribute value by javascript</h1>
+    <button onclick="getElementById('change').src='./img/pic_bulbon.gif'">Turn On</button>
+    <img id="change" src="./img/pic_bulboff.gif" alt="#">
+    <button onclick="getElementById('change').src = './img/pic_bulboff.gif'">Turn Off</button>
+    <h1>Chnage The Css Property By javascript</h1>
+    <h2 id="sizeChange" style="color: aqua;font-size: large;">Change My size.>!!</h2>
+    <button onclick="getElementById('sizeChange').style.fontSize ='medium' ">Change Size To medium</button>
+    <button onclick="getElementById('sizeChange').style.fontSize ='large' ">Change Size To Large</button>
+    <button onclick="getElementById('sizeChange').style.fontSize ='small' ">Change Size To small</button>
+    <h1>Hide Or See The Element using javascript</h1>
+    <h2 id="remove">Removable Content</h2>
+    <button onclick="getElementById('remove').style.display ='none'">Hide</button>
+    <button onclick="getElementById('remove').style.display ='block'">Show</button>
+    <script src="./js/script1.js"></script>
+</body>
+</html>
