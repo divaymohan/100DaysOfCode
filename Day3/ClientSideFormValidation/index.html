@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Form Page</title>
+    <link rel="stylesheet" href="./css/_1.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.2/css/bulma.min.css">
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
     <script src="./js/script.js"></script>
@@ -11,14 +12,15 @@
   <body>
   <section class="section">
     <div class="container">
-      <div >
+      <div class="form">
           <h1 class="title">
               Form Page:
           </h1>
+          <form action="" name="myform" onsubmit="return validate()">
           <div class="field">
             <label class="label">Name</label>
               <div class="control">
-                  <input required type="text" class="input is-primary is-rounded" placeholder="Enter Name">
+                  <input required type="text" id="name" name="name" class="input is-primary is-rounded" placeholder="Enter Name">
               </div>
           </div>
           <div class="field">
@@ -34,10 +36,17 @@
               </div>
           </div>
           <div class="field">
+              <label for="" class="label">Rating</label>
+              <div class="control">
+                  <input type="number" max=10 min=1 class="number is-primary">
+              </div>
+              
+          </div>
+          <div class="field">
               <div class="control">
                   <label for="" class="checkbox">
-                      <input type="checkbox">
-                      I agree to all <a href="#">Term and conditions</a>.
+                      <input required type="checkbox">
+                      I agree to all <a href="https://bulma.io">Term and conditions</a>.
 
                   </label>
               </div>
@@ -47,11 +56,11 @@
               <button class="button is-link">Submit</button>
             </div>
             <div class="control">
-              <button class="button is-link is-light">Cancel</button>
+              <button class="button is-link is-light">check Number</button>
             </div>
           </div>
 
-
+        </form>
       </div>
       
      
