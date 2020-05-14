@@ -49,4 +49,6 @@ Object.defineProperty(obj,"sub",{
 //play with count:
 obj.reset;
 obj.add = 5;
-console.log(obj.count)
+console.log(obj.count);
+obj.sub = 4;
+console.log(obj.count);
