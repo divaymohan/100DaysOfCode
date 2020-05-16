@@ -52,9 +52,60 @@ app.post('/api/person/', function (req, res) {
     res.send(joival.value);
 });
 
+//put request
+app.put('/api/person/:id',(req,res)=>{
+    //look up the course
+    //if not existing , return 404
+    const per = person.find((p)=>{
+        return p.id === parseInt(req.params.id);
+    });
+    if(per === undefined){
+        return res.status(404).send(`Person Not exist with id ${req.params.id}`);
+    }
 
 
+    //validate
+    //if invalid, return 404 -Bad Request
+    const schema = {
+        name: Joi.string().min(3).required(),
+        age: Joi.number().integer().min(15).max(100)
+    };
+    const val = Joi.validate(req.body,schema);
+    if(val.error){
+        return res.status(400).send(val.error.details[0].message);
+    }
+    per.name = req.body.name;
+    per.age = parseInt(req.body.age);
 
+    //Update course
+    //Return the update course
+    res.send(person);
+});
+
+//delete the course
+app.delete('/api/person/:id',(req,res)=>{
+    //look up the course
+    const pers = person.find((p)=> {
+        return p.id === parseInt(req.params.id);
+    });
+    if(!pers) return res.status(404).send("The person with requested id not found");
+    //Not exist return 404
+    const index = person.indexOf(pers);
+    person.splice(index,1);
+    res.send(person);
+
+});
+
+//we can overcome the repeatation of code by creating a function
+
+function validateCourse(course){
+    const schema = {
+        name: Joi.string().min(3).required(),
+        age: Joi.number().integer().min(15).max(100)
+    };
+    const result = Joi.validate(course,schema);
+    return result;
+}
 
 //Listen At Port
 const port = process.env.PORT || 3000;
