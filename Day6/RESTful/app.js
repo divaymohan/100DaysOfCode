@@ -1,4 +1,5 @@
 const express = require('express');
+const Joi = require('joi');
 const app = express();
 //used to parse the request body in json format
 app.use(express.json());
@@ -33,13 +34,22 @@ app.get('/api/person/:id', (req, res) => {
 
 //post request to add a person
 app.post('/api/person/', function (req, res) {
+    //validate input
+   const scheme = {
+       name: Joi.string().min(3).required(),
+       age: Joi.number().integer().min(10).max(100)
+   };
+   const joival = Joi.validate(req.body,scheme);
+   if(joival.error){
+       return res.status(400).send(joival.error.details[0].message);
+   }
     const per = {
         id: person.length + 1,
         name: req.body.name,
         age: parseInt(req.body.age)
     };
     person.push(per);
-    res.send(per);
+    res.send(joival.value);
 });
 
 
