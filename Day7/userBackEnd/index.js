@@ -1,21 +1,27 @@
-const morgan = require('morgan');
-const helet = require('helmet');
+//express modules
 const express = require('express');
-const Joi = require('joi');
-const logger = require('./logger');
-const auth = require('./authenticate');
+const app = express(); 
 
+//third party module
+const morgan = require('morgan');
+const helmet = require('helmet');
+
+//cunstemized midllewares
+const logger = require('./middleware/logger');
+const auth = require('./middleware/authenticate');
+
+//user routes
 const users = require('./routes/user');
 
-const app = express(); 
-//middleware from express
+
+//middleware from express third party modules
+//express middleware
 app.use(express.json()); //req.body
 app.use(express.urlencoded());
 app.use(express.static('public'));
-app.use(helet());
 
-app.use('/api/users',users);
-
+//third party middleware
+app.use(helmet());
 //how to eneble something in developement environment
 if(app.get('env') === 'development'){
     console.log('welcome to development enviroment..!!');
@@ -24,13 +30,12 @@ if(app.get('env') === 'development'){
     console.log('morgan enebled..!');
 }
 
+//local routes
+app.use('/api/users',users);
+
 //customized middleware
 app.use(logger);
 app.use(auth);
-
-
-
-
 
  //listen at port
 const port = process.env.PORT || 3000;
