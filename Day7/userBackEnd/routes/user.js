@@ -2,6 +2,10 @@ const express = require('express');
 const router = express.Router();
 const Joi = require('joi');
 
+//debuging vars
+const debugValidate = require('debug')('app:validate');
+
+
 const users = [
     {id:1,fisrtName:"divay",lastName:"mohan",age: 24,userName:"dm.fire",password:"divmoh1305"},
     {id:2,fisrtName:"diksha",lastName:"rajput",age: 24,userName:"dx",password:"divmoh1305"},
@@ -16,6 +20,7 @@ const users = [
 ];
 
 function validate(user){
+    debugValidate('validating the request..!!');
     const schema = {
         fisrtName: Joi.string().min(3).max(15).required(),
         lastName: Joi.string().min(3).max(15).required(),
@@ -24,6 +29,7 @@ function validate(user){
         password: Joi.string().alphanum().min(3).max(20).required()
     };
     const result = Joi.validate(user,schema);
+    debugValidate('validation complete..!!');
     return result;
 }
 
@@ -64,7 +70,11 @@ router.get('/name/:username/',(req,res)=>{
     //validate the data
     const {error,value} = validate(req.body);
     //if not valid through a error
-    if(error) return res.send(error.details[0].message);
+    if(error){
+        debugValidate('invalid request..!!');
+        debugValidate(`MESSAGE :: ${error.details[0].message}`);
+        return res.send(error.details[0].message);
+    } 
     //if valid add user and return new added user
     //create new user
     const newuser = {
@@ -91,7 +101,11 @@ router.get('/name/:username/',(req,res)=>{
     if(usr === undefined) return res.status(404).send(`User not found with id ${req.body.id}`);
     //validate
     const {error,value} = validate(req.body);
-    if(error) return res.status(400).send(error.details[0].message);
+    if(error){
+        debugValidate('invalid request..!!');
+        debugValidate(`MESSAGE :: ${error.details[0].message}`);
+        return res.status(400).send(error.details[0].message);
+    } 
     //else update user
     usr.fisrtName = req.body.fisrtName;
     usr.lastName = req.body.lastName;

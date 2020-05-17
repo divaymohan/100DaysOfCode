@@ -1,5 +1,6 @@
+const debug = require('debug')('app:loging');
 function log(req,res,next){
-    console.log("loging...!!");
+    debug("loging...!!");
     next();
 }
 

@@ -1,6 +1,8 @@
 //express modules
 const express = require('express');
 const app = express(); 
+const debugDev = require('debug')('app:dev');
+const debugStartup = require('debug')('app:startup');
 
 //third party module
 const morgan = require('morgan');
@@ -24,10 +26,10 @@ app.use(express.static('public'));
 app.use(helmet());
 //how to eneble something in developement environment
 if(app.get('env') === 'development'){
-    console.log('welcome to development enviroment..!!');
-    console.log('enebling morgan to simply print the requist..!!');
+    debugDev('welcome to development enviroment..!!');
+    debugDev('enebling morgan to simply print the requist..!!');
     app.use(morgan('tiny'));
-    console.log('morgan enebled..!');
+    debugDev('morgan enebled..!');
 }
 
 //local routes
@@ -40,5 +42,5 @@ app.use(auth);
  //listen at port
 const port = process.env.PORT || 3000;
 app.listen(port,()=>{
-    console.log(`listening at port ${port}`);
+    debugStartup(`listening at port ${port}`);
 });

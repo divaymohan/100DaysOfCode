@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/divaymohan/user-backend-services#readme",
   "dependencies": {
+    "debug": "^4.1.1",
     "express": "^4.17.1",
     "helmet": "^3.22.0",
     "joi": "^14.3.1",

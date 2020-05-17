@@ -1,5 +1,7 @@
+const debug = require('debug')('app:auth');
+
 function authenticate(req,res,next){
-    console.log('authhenticating..!!');
+    debug('authhenticating..!!');
     next();
 }
 
