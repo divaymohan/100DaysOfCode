@@ -3,9 +3,11 @@ const Joi = require('joi');
 const logger = require('./logger');
 const auth = require('./authenticate');
 
-const app = express();
+const app = express(); 
 //middleware from express
-app.use(express.json());
+app.use(express.json()); //req.body
+app.use(express.urlencoded());
+app.use(express.static('public'));
 //customized middleware
 app.use(logger);
 app.use(auth);
@@ -21,7 +23,7 @@ const users = [
     {id:8,fisrtName:"akash",lastName:"kumar",age: 25,userName:"akashkumar",password:"divmoh1305"},
     {id:9,fisrtName:"aman",lastName:"chaudhary",age: 26,userName:"aman",password:"divmoh1305"},
     {id:10,fisrtName:"aniket",lastName:"chaudhary",age: 20,userName:"aniket",password:"divmoh1305"}
-]
+];
 //
 function validate(user){
     const schema = {
