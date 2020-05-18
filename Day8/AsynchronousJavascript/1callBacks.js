@@ -5,6 +5,10 @@ getUser(1,(user)=>{
 
     getRepositories(user.gitHubUsername,(repos)=>{
         console.log(repos);
+        getCommits(repos[0],(commits)=>{
+            console.log(commits);
+        })
+        //this structure of code is called as CALLBACk HELL PROBLEM..!
     });
 });
 console.log('After');
@@ -21,4 +25,10 @@ function getRepositories(name,callback){
    },2000);
     
 
+}
+function getCommits(name,callback){
+    setTimeout(()=>{
+        console.log("Reading the commits from github..!!");
+        callback(['c1','c2','c3']);
+    });
 }
