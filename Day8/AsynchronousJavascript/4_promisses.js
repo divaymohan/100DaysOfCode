@@ -1,5 +1,6 @@
 console.log('Before');
 //non blocking function
+/*
 getUser(1,(user)=>{
     //console.log('User',user);
 
@@ -11,6 +12,15 @@ getUser(1,(user)=>{
         //this structure of code is called as CALLBACk HELL PROBLEM..!
     });
 });
+*/
+getUser(1)
+    .then(user => getRepositories(user.gitHubUsername) )
+    .then(repos => getCommits(repos[0]))
+    .then(Commits => console.log(Commits))
+    .catch(err => console.log('Eror',err.message));
+
+
+
 console.log('After');
 
 
@@ -43,7 +53,7 @@ function getCommits(name){
         setTimeout(()=>{
             console.log("Reading the commits from github..!!");
             resolve(['c1','c2','c3']);
-        });
+        },2000);
 
     });
     
