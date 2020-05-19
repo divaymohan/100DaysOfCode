@@ -51,4 +51,22 @@ async function getData(){
 }
 getData();
 
+getFromDatabase('Getting by operators');
+async function getDataWithOp(){
+    //eq (equal)
+    //ne (not equal)
+    // gt (greater than)
+    // gte (greater than or equal)
+    // lt (less than)
+    // lte (less than or equal)
+    // in
+    // nin (not in)
+    //or([1,2])
+    //and([1,2])
+    //regular expression
+    const result = await User.find({age: {$gt: 20}});
+    getFromDatabase(result);
+                        
+}
+getDataWithOp();
 
