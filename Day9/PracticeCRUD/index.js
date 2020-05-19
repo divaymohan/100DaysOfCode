@@ -1,38 +1,28 @@
-//import module
 const mongoose =  require('mongoose');
 
-//connect to database
-
 mongoose.connect('mongodb://localhost/mongo-exercises')
-        .then(()=> console.log('database connected..!!'))
-        .catch(err => console.log('Connection Error:: ',err));
+        .then(()=>console.log('DataBase Connected..!!'))
+        .catch(err=> console.log('Connection err: ',err));
+
 const schema = mongoose.Schema({
-    tags: [ String ],
-    date: Date,
+    tags:[ String ],
+    date:Date,
     name: String,
     author: String,
     isPublished: Boolean,
     price: Number
 });
+
+const Course = mongoose.model('Course',schema);
 async function getCourses(){
-    //prepare schema
-    
-
-
-    //create model
-    const Course = mongoose.model('Course',schema);
-
-
-    //query
     return await Course
-                        .find({isPublished: true,tags: 'backend'})
-                        .sort({name:1})
-                        .select({name:1,author:1});
-    
+    .find({isPublished: true, tags: {$in : ['frontend','backend']}})
+    .sort({price: -1})
+    .select({name:1, author:1});
 }
 async function run(){
-    const courses =  await getCourses();
-    console.log(courses);
-
+    const data = await getCourses();
+    console.log(data);
 }
 run();
+
