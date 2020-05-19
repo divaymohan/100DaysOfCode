@@ -16,9 +16,12 @@ const schema = mongoose.Schema({
 const Course = mongoose.model('Course',schema);
 async function getCourses(){
     return await Course
-    .find({isPublished: true, tags: {$in : ['frontend','backend']}})
-    .sort('-price')
-    .select('name author price');
+.find({isPublished: true} )
+.or([
+    { price:{ $gte: 15}},
+    { name: /.*by.*/i}
+    
+    ]);
 }
 async function run(){
     const data = await getCourses();
