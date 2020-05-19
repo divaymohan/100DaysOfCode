@@ -5,6 +5,7 @@ const createSchema = require('debug')('app:scheme');
 const createModelClass = require('debug')('app:model');
 const createObject = require('debug')('app:object');
 const saveObject = require('debug')('app:save');
+const getFromDatabase = require('debug')('app:query');
 
 mongoose.connect('mongodb://localhost/userProfiling')
     .then(()=> connectDebug('connected to database..!!'))
@@ -26,11 +27,11 @@ createModelClass('Model Created Succussfully');
 async function saveUser(){
     createObject('Creating a object..!');
     const user = new User({
-        firstName: "divay",
-        lastName: "mohan",
+        firstName: "mohan",
+        lastName: "divay",
         userName: "dm.fire",
-        age: 24,
-        email: "divaymohan05@gmail.com"
+        age: 15,
+        email: "mohandivay05@gmail.com"
     });
     createObject('object created..!!');
 
@@ -40,5 +41,14 @@ async function saveUser(){
 }
 saveUser();
 
+getFromDatabase('getting data from database..!!');
+async function getData(){
+    const result = await User.find({userName:'dm.fire'})
+                            .sort({age: 1})
+                            .limit(10)
+                            .select({lastName: 1,firstName: 1,age: 1});
+    getFromDatabase(result);
+}
+getData();
 
 
