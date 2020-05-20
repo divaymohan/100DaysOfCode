@@ -13,7 +13,7 @@ mongoose.connect('mongodb://localhost/userProfiling')
         .catch(err => debugConnect(err.message));
 //prepare scheme
 const schema = new mongoose.Schema({
-    firstName: String,
+    firstName: {type: String,required: true},
     lastName: String,
     userName: String,
     age: Number,
@@ -25,7 +25,7 @@ const User = mongoose.model('User',schema);
 async function createUser(){
     //Create
     const newUser = new User({
-        firstName: "suchna",
+        //firstName: "suchna",
         lastName: "kumari",
         userName: "suchchi",
         age: 32,
@@ -65,16 +65,22 @@ async function deleteUser(id){
     return result;
 } 
 async function run(){
-    const user1 = await createUser();
-    debugCreate(user1);
-    const user2 = await getUsers(user1._id);
-    debugGet(user2);
-    const user3 = await update(user2._id);
-    debugUpdate(user3);
-    const user4 = await directUpdate(user3._id);
-    debugDirectUpdate(user4);
-    const res = await deleteUser(user1._id);
-    debugDelete(res);
+    try{
+        const user1 = await createUser();
+        debugCreate(user1);
+        const user2 = await getUsers(user1._id);
+        debugGet(user2);
+        const user3 = await update(user2._id);
+        debugUpdate(user3);
+        const user4 = await directUpdate(user3._id);
+        debugDirectUpdate(user4);
+        const res = await deleteUser(user1._id);
+        debugDelete(res);
+
+    }catch(ex){
+        console.log(ex.message);
+    }
+    
 
 }
 run();
