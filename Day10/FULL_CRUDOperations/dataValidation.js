@@ -16,7 +16,18 @@ const schema = new mongoose.Schema({
     firstName: {type: String,required: true},
     lastName: String,
     userName: String,
-    age: Number,
+    age: {    //custom Validator
+        type: Number,
+        validate: {
+            validator: function(v){
+                return v && v>0;
+            },
+            message: "Age Cant be Zero Or Negative."
+
+        }
+        
+
+    },
     email: String
 });
 
@@ -25,10 +36,10 @@ const User = mongoose.model('User',schema);
 async function createUser(){
     //Create
     const newUser = new User({
-        //firstName: "suchna",
+        firstName: "suchna",
         lastName: "kumari",
         userName: "suchchi",
-        age: 32,
+        //age: 1,
         email: "suchi@kumari.gmail.com"
     });
 
