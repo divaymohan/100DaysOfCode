@@ -13,19 +13,9 @@ const schema = mongoose.Schema({
     price: Number
 });
 
-const Course = mongoose.model('Course',schema);
+const Course = mongoose.model('course',schema);
 async function getCourses(){
-    return await Course
-.find({isPublished: true} )
-.or([
-    { price:{ $gte: 15}},
-    { name: /.*by.*/i}
-    
-    ]);
+    const result =  await Course.find();
+    console.log(result);
 }
-async function run(){
-    const data = await getCourses();
-    console.log(data);
-}
-run();
-
+getCourses();
