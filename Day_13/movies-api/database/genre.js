@@ -50,5 +50,6 @@ module.exports = {
     addGenre: addGenre,
     deleteGenre: deleteGenre,
     update: update,
-    genreScheme: schema
+    genreSchema: schema,
+    Genre: Genre
 }

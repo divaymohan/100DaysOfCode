@@ -1,9 +1,11 @@
 const mongoose =  require('mongoose');
-
+const genre = require('./routes/genre'); 
 const express = require('express');
 const app = express();
 
 app.use(express.json());
+
+app.use('/api/movies/genre',genre);
 
 //connect to database
 mongoose.connect('mongodb://localhost/playground')
