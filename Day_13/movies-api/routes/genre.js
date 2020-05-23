@@ -34,10 +34,28 @@ route.get('/:id',async (req,res)=>{
 });
 //delete by id
 route.delete('/:id',async (req,res)=>{
-
+    try{
+        const result = await deleteGenre(req.params.id);
+        if(result.n==0) res.status(400).send(`No genre found with id:${req.params.id}`);
+        res.send(result);
+    }
+    catch(err){
+        res.send(err.message);
+    }
 });
 //update
 route.put('/:id',async (req,res)=>{
+    const {error} = validate(req.body);
+    if(error) res.status(400).send(error.details[0].message);
+    try{
+        const result = await update(req.params.id,req.body);
+        if(!result) res.status(400).send(`No genre found with id:${req.params.id}`);
+        res.send(result);
+    }
+    catch(err){
+        res.send(err.message);
+    }
+   
 
 });
 //create
