@@ -6,6 +6,7 @@ const app = express();
 app.use(express.json());
 
 app.use('/api/movies/genre',genre);
+app.use('/api/movies')
 
 //connect to database
 mongoose.connect('mongodb://localhost/playground')
