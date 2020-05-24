@@ -28,11 +28,15 @@ async function getCustomer(){
     return customers;
 }
 //getbyid
-
-
+async function getCustomerById(id){
+    const result = await Customer.findById(id);
+    return result;
+}
 //delete
-
-
+async function deleteCustomer(id){
+    const result = Customer.default({_id: id});
+    return result;
+}
 //update
 
 
