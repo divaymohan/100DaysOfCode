@@ -65,3 +65,12 @@ async function addNewCustomer(cust){
     return result;
 }
 
+module.exports = {
+    customerSchema: customerSchema,
+    Customer: Customer,
+    addNewCustomer: addNewCustomer,
+    getCustomer: getCustomer,
+    getCustomerById:getCustomerById,
+    updateCustomer: updateCustomer,
+    deleteCustomer: deleteCustomer
+}
