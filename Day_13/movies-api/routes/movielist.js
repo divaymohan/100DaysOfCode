@@ -25,6 +25,7 @@ route.post('/',async (req,res)=>{
     const {error} = validate(req.body);
     if(error) res.status(400).send(error.details[0].message);
     try{
+        console.log('i am going to add..');
         const result = await addNewMovie(req.body);
         res.send(result);
     }
