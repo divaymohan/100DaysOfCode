@@ -43,6 +43,16 @@ route.post('/',async (req,res)=>{
         res.send(err);
     }
 });
+route.delete('/:id',async (req,res)=>{
+    try{
+        const result = await deleteMovie(req.params.id);
+        if(result.n==0) res.status(400).send(`no element found with id: ${req.params.id}`);
+        else res.send(result);
+    }
+    catch(err){
+        res.send(err.message);
+    }
+});
 
 
 
