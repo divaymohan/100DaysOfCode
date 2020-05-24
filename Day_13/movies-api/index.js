@@ -1,12 +1,13 @@
 const mongoose =  require('mongoose');
 const genre = require('./routes/genre'); 
+const movie = require('./routes/movielist');
 const express = require('express');
 const app = express();
 
 app.use(express.json());
 
 app.use('/api/movies/genre',genre);
-app.use('/api/movies')
+app.use('/api/movies/movie',movie)
 
 //connect to database
 mongoose.connect('mongodb://localhost/playground')

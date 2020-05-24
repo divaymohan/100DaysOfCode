@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const { genreSchema,Genre } = require('./genre');
 //schema
-const movieSchema = mongoose.Schema({
+const movieSchema = new mongoose.Schema({
     title: {
         type: String,
         require: true,
@@ -45,6 +45,7 @@ async function deleteMovie(id){
 //addNew
 async function addNewMovie(movie){
     const genre = await Genre.findById(movie.genreId);
+    console.log(genre);
     const movie = new Movie({
         title: movie.title,
         genre: {
@@ -54,8 +55,9 @@ async function addNewMovie(movie){
         numberInStock: movie.numberInStock,
         dailyRantalRate: movie.dailyRantalRate
     });
-    return await movie.save();
-    
+    console.log(movie);
+    const result =  await movie.save();
+    return result;
 }
 //update movies
 

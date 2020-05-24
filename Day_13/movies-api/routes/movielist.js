@@ -1,5 +1,5 @@
 const Joi = require('joi');
-const movieDB = require('../database/movielist');
+const {getMovies,getMoviesById,deleteMovie,addNewMovie,movieSchema} = require('../database/movielist');
 
 const express = require('express');
 const route = express.Router();
@@ -13,6 +13,26 @@ function validate(movie){
     }
     return Joi.validate(movie,schema);
 }
+route.get('/',async (req,res)=>{
+    try{
+        const movies = await getMovies();
+        return res.send(movies);
+    }catch(err){
+        res.send(err);
+    }
+});
+route.post('/',async (req,res)=>{
+    const {error} = validate(req.body);
+    if(error) res.status(400).send(error.details[0].message);
+    try{
+        const result = await addNewMovie(req.body);
+        res.send(result);
+    }
+    catch(err){
+        res.send(err);
+    }
+});
+
 
 
 
