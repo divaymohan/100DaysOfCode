@@ -38,6 +38,30 @@ async function deleteCustomer(id){
     return result;
 }
 //update
+async function updateCustomer(id,cust){
+    const customer = await Customer.findById(id)
+    if(!customer) return;
+    if(cust.name){
+        customer.name = cust.name;
+    }
+    if(cust.contectNumber){
+        customer.contectNumber = cust.contectNumber;
+    }
+    if(cust.isGold){
+        customer.isGold = cust.isGold;
+    }
+    return await customer.save();
+}
 
 
 //addnew
+async function addNewCustomer(cust){
+    const customer = new Customer({
+        name: cust.name,
+        contectNumber: cust.contectNumber,
+        isGold: cust.isGold
+    });
+    const result =  await customer.save();
+    return result;
+}
+
