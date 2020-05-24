@@ -61,5 +61,11 @@ async function addNewMovie(movie){
 
 
 module.exports = {
+    movieSchema: movieSchema,
+    Movie: Movie,
+    getMovies: getMovies,
+    getMoviesById: getMoviesById,
+    deleteMovie: deleteMovie,
+    addNewMovie: addNewMovie
 
 }
