@@ -21,6 +21,16 @@ route.get('/',async (req,res)=>{
         res.send(err);
     }
 });
+route.get('/:id',async (req,res)=>{
+    try{
+        const result =await getMoviesById(req.params.id);
+        res.send(result);
+
+    }
+    catch(err){
+        res.send(err.message);
+    }
+});
 route.post('/',async (req,res)=>{
     const {error} = validate(req.body);
     if(error) res.status(400).send(error.details[0].message);
