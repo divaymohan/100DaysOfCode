@@ -1,4 +1,6 @@
 const mongoose =  require('mongoose');
+const { movieSchema,Movie } = require('./movielist');
+const { customerSchema,Customer } = require('./customer');
 
 //schema--
         //customer
@@ -7,7 +9,7 @@ const mongoose =  require('mongoose');
         //dateout
         //datereturn
 const rentalSchema =  mongoose.Schema({
-    customre: {
+    customer: {
         type: new mongoose.Schema({
             name: {
                 type: String,
@@ -57,3 +59,58 @@ const rentalSchema =  mongoose.Schema({
         min: 0
     }
 });
+
+//model
+const Rental =  mongoose.model('Rental',rentalSchema);
+
+
+//get all list of rental
+async function getRentals(){
+    const rentals = await Rental.find();
+    return rentals;
+}
+//get Rentals by id
+async function getRentalById(id){
+    const rental = await Rental.findById(id);
+    if(!rental) return rental;
+    return rental;
+}
+//add rentalid
+async function addRental(newRental){
+    const movie = await Movie.findById(newRental.movieId);
+    if(!movie) return;
+    const customer = await Customer.findById(newRental.customerId);
+    if(!customer) return;
+    const rental = new Rental({
+        customer:{
+            _id : customer._id,
+            name: customer.name,
+            contectNumber: customer.contectNumber,
+            isGold: customer.isGold 
+        },
+        movie:{
+            _id: movie._id,
+            title: movie.title,
+            dailyRantalRate: movie.dailyRantalRate
+        },
+        dateReturn: newRental.dateReturn
+    });
+    movie.numberInStock = movie.numberInStock-1;
+    await movie.save(); 
+    const result = await rental.save();
+    return result;
+}
+//delete or close rental
+
+
+
+//renew rental (update)
+
+
+module.exports ={
+    Rental: Rental,
+    rentalSchema:rentalSchema,
+    getRentals:getRentals,
+    getRentalById:getRentalById,
+    addRental: addRental
+}
