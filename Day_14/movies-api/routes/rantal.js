@@ -1,5 +1,5 @@
 const joi = require('joi');
-const {addRental,getRentals,getRentalById} = require('../database/rental');
+const {addRental,getRentals,getRentalById,closeRental} = require('../database/rental');
 
 const express =  require('express');
 const route = express.Router();
@@ -40,6 +40,16 @@ route.post('/',async (req,res)=>{
     try{
         const result = await addRental(req.body);
         res.send(result);
+    }
+    catch(err){
+        res.send(err.message);
+    }
+});
+route.delete('/:id',async (req,res)=>{
+    try{
+        const pay = await closeRental(req.params.id);
+        if(!pay) res.status(400).send(`No movie found with id: ${req.params.id}`);
+        res.send(pay);
     }
     catch(err){
         res.send(err.message);

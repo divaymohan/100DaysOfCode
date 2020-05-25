@@ -63,6 +63,12 @@ const rentalSchema =  mongoose.Schema({
 //model
 const Rental =  mongoose.model('Rental',rentalSchema);
 
+var date_diff_indays = function(date1, date2) {
+    dt1 = new Date(date1);
+    dt2 = new Date(new Date());
+    return Math.ceil((Date.UTC(dt2.getFullYear(), dt2.getMonth(), dt2.getDate()) - Date.UTC(dt1.getFullYear(), dt1.getMonth(), dt1.getDate()) ) /(1000 * 60 * 60 * 24));
+}
+
 
 //get all list of rental
 async function getRentals(){
@@ -101,6 +107,23 @@ async function addRental(newRental){
     return result;
 }
 //delete or close rental
+async function closeRental(id){
+    const rental = await Rental.findById(id);
+    if(!rental) return;
+    
+    
+    const pay = date_diff_indays(rental.dateOut);
+    const returnObj = {
+        moviename: rental.movie.title,
+        pay: pay
+    }        
+    const movie = await Movie.findById(rental.movie._id);
+    movie.numberInStock = movie.numberInStock+1;
+    await movie.save();
+    await Rental.deleteOne({_id: id});
+    return returnObj;
+
+}
 
 
 
@@ -112,5 +135,6 @@ module.exports ={
     rentalSchema:rentalSchema,
     getRentals:getRentals,
     getRentalById:getRentalById,
-    addRental: addRental
+    addRental: addRental,
+    closeRental: closeRental
 }
