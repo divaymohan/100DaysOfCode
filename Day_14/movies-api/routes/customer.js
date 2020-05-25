@@ -36,3 +36,26 @@ route.get('/:id',async (req,res)=>{
         res.send(err.message);
     }
 });
+//delete
+route.delete('/:id',async (req,res)=>{
+    try{
+        const result = await deleteCustomer(req.params.id);
+        if(result.n == 0) res.status(400).send(`No item found with id :: ${req.params.id}`);
+        res.send(result);
+    }
+    catch(err){
+        res.send(err.message);
+    }
+});
+//add new
+route.post('/',async (req,res)=>{
+    const {error} = validate(req.body);
+    if(error) res.status(400).send(error.details[0].message);
+    try{
+        const result = await addNewCustomer(req.body);
+        res.send(result);
+    }
+    catch(error){
+        res.send(error.message);
+    }
+});
