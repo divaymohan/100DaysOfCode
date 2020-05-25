@@ -6,7 +6,7 @@ const joi = require('joi');
 //validating request
 function validate(genre){
     const schema = {
-        genreName: joi.string().min(3).max(255).required()
+        genreName: joi.string().min(2).max(255).required()
     }
     return joi.validate(genre,schema);
 }
@@ -46,7 +46,7 @@ route.delete('/:id',async (req,res)=>{
 //update
 route.put('/:id',async (req,res)=>{
     const {error} = validate(req.body);
-    if(error) res.status(400).send(error.details[0].message);
+    if(error) return res.status(400).send(error.details[0].message);
     try{
         const result = await update(req.params.id,req.body);
         if(!result) res.status(400).send(`No genre found with id:${req.params.id}`);

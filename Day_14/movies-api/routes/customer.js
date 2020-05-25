@@ -11,9 +11,10 @@ function validate(cust){
     const schema = {
         name: joi.string().min(3).max(255).required().trim(),
         contectNumber: joi.number().min(0000000000).max(9999999999).required(),
-        isGold: joi.boolean()
+        isGold: joi.bool()
     }
     const result = joi.validate(cust,schema);
+    return result;
 
 }
 
@@ -31,6 +32,7 @@ route.get('/',async (req,res)=>{
 route.get('/:id',async (req,res)=>{
     try{
         const customer = await getCustomerById(req.params.id);
+        res.send(customer);
     }
     catch(err){
         res.send(err.message);
@@ -49,13 +51,16 @@ route.delete('/:id',async (req,res)=>{
 });
 //add new
 route.post('/',async (req,res)=>{
-    const {error} = validate(req.body);
-    if(error) res.status(400).send(error.details[0].message);
+    const {error,value} = validate(req.body);
+    if(error) return res.status(400).send(error.details[0].message);
     try{
         const result = await addNewCustomer(req.body);
-        res.send(result);
+        return res.send(result);
     }
-    catch(error){
-        res.send(error.message);
+    catch(err){
+        res.send(err.message);
     }
 });
+
+
+module.exports = route;

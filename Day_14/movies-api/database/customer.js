@@ -34,7 +34,7 @@ async function getCustomerById(id){
 }
 //delete
 async function deleteCustomer(id){
-    const result = Customer.default({_id: id});
+    const result = Customer.deleteOne({_id: id});
     return result;
 }
 //update
