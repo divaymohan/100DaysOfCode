@@ -42,8 +42,8 @@ route.get('/:id',async (req,res)=>{
 route.delete('/:id',async (req,res)=>{
     try{
         const result = await deleteCustomer(req.params.id);
-        if(result.n == 0) res.status(400).send(`No item found with id :: ${req.params.id}`);
-        res.send(result);
+        if(result.n == 0) return res.status(400).send(`No item found with id :: ${req.params.id}`);
+        return res.send(result);
     }
     catch(err){
         res.send(err.message);
