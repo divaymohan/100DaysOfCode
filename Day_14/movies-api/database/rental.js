@@ -33,7 +33,7 @@ const rentalSchema =  mongoose.Schema({
         })
     },
     movie: {
-        type: new Schema({
+        type: new mongoose.Schema({
             title:{
                 type: String,
                 minlength: 3,

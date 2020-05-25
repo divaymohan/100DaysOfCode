@@ -15,7 +15,7 @@ function validate(rental){
     return joi.validate(rental,schema);
 }
 
-route.post('/',(req,res)=>{
+route.post('/',async (req,res)=>{
     const {error}= validate(req.body);
     if(error) res.status(400).send(error.details[0].message);
     try{
@@ -25,5 +25,6 @@ route.post('/',(req,res)=>{
     catch(err){
         res.send(err.message);
     }
-    
 });
+
+module.exports = route;
