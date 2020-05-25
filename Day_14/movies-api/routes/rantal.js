@@ -1,5 +1,5 @@
 const joi = require('joi');
-const {addRental} = require('../database/rental');
+const {addRental,getRentals,getRentalById} = require('../database/rental');
 
 const express =  require('express');
 const route = express.Router();
@@ -14,6 +14,25 @@ function validate(rental){
     }
     return joi.validate(rental,schema);
 }
+
+route.get('/',async (req,res)=>{
+    try{
+        const rentels = await getRentals();
+        res.send(rentels);
+    }
+    catch(err){
+        res.send(err.message);
+    }
+});
+route.get('/:id',async(req,res)=>{
+    try{
+        const rentel = await getRentalById(req.params.id);
+        res.send(rentel);
+    }
+    catch(err){
+        res.send(err.message);
+    }
+});
 
 route.post('/',async (req,res)=>{
     const {error}= validate(req.body);
