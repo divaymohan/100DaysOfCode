@@ -45,6 +45,7 @@ class Table extends Component {
     console.log("deleting ..", id);
 
     deleteMovie(id);
+
     this.setState({ movies: getMovies(), count: getMovies().length });
   };
 }
