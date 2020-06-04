@@ -4,11 +4,13 @@ import { getMovies, getMovie, deleteMovie } from "../services/fakeMovieService";
 class Table extends Component {
   state = {
     movies: getMovies(),
+    count: getMovies().length,
   };
 
   render() {
     return (
       <div>
+        <p>Number Of Movies in stock {this.state.count}</p>
         <table className="table">
           <thead>
             <tr>
@@ -43,7 +45,7 @@ class Table extends Component {
     console.log("deleting ..", id);
 
     deleteMovie(id);
-    this.setState({ movies: getMovies() });
+    this.setState({ movies: getMovies(), count: getMovies().length });
   };
 }
 
