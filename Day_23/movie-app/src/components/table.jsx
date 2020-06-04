@@ -1,10 +1,11 @@
 import React, { Component } from "react";
-import { getMovies, getMovie } from "../services/fakeMovieService";
+import { getMovies, getMovie, deleteMovie } from "../services/fakeMovieService";
 
 class Table extends Component {
   state = {
     movies: getMovies(),
   };
+
   render() {
     return (
       <div>
@@ -19,12 +20,17 @@ class Table extends Component {
           </thead>
           <tbody>
             {this.state.movies.map((movie) => (
-              <tr>
+              <tr key={movie._id}>
                 <td>{movie.title}</td>
                 <td> {movie.genre.name}</td>
                 <td>{movie.numberInStock}</td>
                 <td>
-                  <button className="btn btn-primary"> Delete</button>
+                  <button
+                    onClick={() => this.deleteMovie(movie._id)}
+                    className="btn btn-danger"
+                  >
+                    Delete
+                  </button>
                 </td>
               </tr>
             ))}
@@ -33,6 +39,12 @@ class Table extends Component {
       </div>
     );
   }
+  deleteMovie = (id) => {
+    console.log("deleting ..", id);
+
+    deleteMovie(id);
+    this.setState({ movies: getMovies() });
+  };
 }
 
 export default Table;
