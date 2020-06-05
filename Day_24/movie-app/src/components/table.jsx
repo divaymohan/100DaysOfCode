@@ -8,7 +8,6 @@ class Table extends Component {
   };
 
   render() {
-    if (this.state.count === 0) return "No movies in the database..!!";
     return (
       <div>
         <p>Number Of Movies in stock {this.state.count}</p>
@@ -30,7 +29,7 @@ class Table extends Component {
                 <td>
                   <button
                     onClick={() => this.deleteMovie(movie._id)}
-                    className="btn btn-danger btn-sm"
+                    className="btn btn-danger"
                   >
                     Delete
                   </button>
