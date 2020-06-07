@@ -23,6 +23,9 @@ class Table extends Component {
   handlePageChange = (page) => {
     this.setState({ currentPage: page });
   };
+  clickOnGenre = (genre) => {
+    console.log(genre);
+  };
 
   render() {
     if (this.state.count === 0) return "No movies in the database..!!";
@@ -35,7 +38,10 @@ class Table extends Component {
       <div>
         <div className="row">
           <div className="col-2 m-4">
-            <FilterList genres={this.state.genres} />
+            <FilterList
+              genres={this.state.genres}
+              clickOnGenre={this.clickOnGenre}
+            />
           </div>
           <div className="col">
             <p>Number Of Movies in stock {this.state.count}</p>
