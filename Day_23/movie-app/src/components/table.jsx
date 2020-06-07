@@ -6,7 +6,8 @@ class Table extends Component {
   state = {
     movies: getMovies(),
     count: getMovies().length,
-    pageSize: 4,
+    pageSize: 3,
+    currentPage: 1,
   };
   handleLikeClick = (movie) => {
     const movies = [...this.state.movies];
@@ -16,7 +17,7 @@ class Table extends Component {
     this.setState({ movies });
   };
   handlePageChange = (page) => {
-    console.log(page);
+    this.setState({ currentPage: page });
   };
 
   render() {
@@ -61,6 +62,7 @@ class Table extends Component {
         <Pagination
           itemsCount={this.state.movies.length}
           pageSize={this.state.pageSize}
+          currentPage={this.state.currentPage}
           onPageChange={this.handlePageChange}
         />
       </div>
