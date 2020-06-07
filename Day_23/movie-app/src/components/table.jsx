@@ -6,6 +6,13 @@ class Table extends Component {
     movies: getMovies(),
     count: getMovies().length,
   };
+  handleLikeClick = (movie) => {
+    const movies = [...this.state.movies];
+    const index = movies.indexOf(movie);
+    movies[index] = { ...movies[index] };
+    movies[index].liked = !movies[index].liked;
+    this.setState({ movies });
+  };
 
   render() {
     if (this.state.count === 0) return "No movies in the database..!!";
@@ -29,7 +36,10 @@ class Table extends Component {
                 <td> {movie.genre.name}</td>
                 <td>{movie.numberInStock}</td>
                 <td>
-                  <Like />
+                  <Like
+                    liked={movie.liked}
+                    onClick={() => this.handleLikeClick(movie)}
+                  />
                 </td>
                 <td>
                   <button
