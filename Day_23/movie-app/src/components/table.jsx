@@ -2,11 +2,12 @@ import React, { Component } from "react";
 import { getMovies, getMovie, deleteMovie } from "../services/fakeMovieService";
 import Like from "./common/like";
 import Pagination from "./common/pagination";
+import { paginate } from "../utils/paginate";
 class Table extends Component {
   state = {
     movies: getMovies(),
     count: getMovies().length,
-    pageSize: 3,
+    pageSize: 4,
     currentPage: 1,
   };
   handleLikeClick = (movie) => {
@@ -22,6 +23,11 @@ class Table extends Component {
 
   render() {
     if (this.state.count === 0) return "No movies in the database..!!";
+    const movies = paginate(
+      this.state.movies,
+      this.state.currentPage,
+      this.state.pageSize
+    );
     return (
       <div>
         <p>Number Of Movies in stock {this.state.count}</p>
@@ -36,7 +42,7 @@ class Table extends Component {
             </tr>
           </thead>
           <tbody>
-            {this.state.movies.map((movie) => (
+            {movies.map((movie) => (
               <tr key={movie._id}>
                 <td>{movie.title}</td>
                 <td> {movie.genre.name}</td>
