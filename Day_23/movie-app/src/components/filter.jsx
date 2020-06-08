@@ -3,12 +3,20 @@ import React, { Component } from "react";
 class FilterList extends Component {
   state = {};
   render() {
-    const { genres, clickOnGenre } = this.props;
+    const { genres, clickOnGenre, selectedGenre } = this.props;
     return (
       <ul className="list-group">
-        <li className="list-group-item active">All Geners</li>
         {genres.map((genere) => (
-          <li onClick={() => clickOnGenre(genere)} className="list-group-item">
+          <li
+            key={genere._id}
+            onClick={() => clickOnGenre(genere)}
+            className={
+              genere === selectedGenre
+                ? "list-group-item active"
+                : "list-group-item"
+            }
+            style={{ cursor: "pointer" }}
+          >
             {genere.name}
           </li>
         ))}
@@ -16,5 +24,10 @@ class FilterList extends Component {
     );
   }
 }
-
+/*
+FilterList.defaultProps = {
+  textProperty: 'name',
+  valueProperty: '_id' 
+}
+*/
 export default FilterList;

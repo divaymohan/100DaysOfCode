@@ -1,12 +1,14 @@
 import React from "react";
 import "./App.css";
-import Table from "./components/table";
+import Movies from "./components/movies";
 
 function App() {
   return (
     <main className="container">
-      <h1>Hello Vidly</h1>
-      <Table />
+      <h1>
+        <span className="badge badge-dark text-success">movie app</span>{" "}
+      </h1>
+      <Movies />
     </main>
   );
 }
