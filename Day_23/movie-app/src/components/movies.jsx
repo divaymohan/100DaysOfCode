@@ -5,6 +5,7 @@ import MoviesTable from "./moviesTable";
 import Pagination from "./common/pagination";
 import { paginate } from "../utils/paginate";
 import FilterList from "./filter";
+import _ from "lodash";
 class Movies extends Component {
   state = {
     movies: [],
@@ -13,9 +14,10 @@ class Movies extends Component {
     selectedGenre: null,
     pageSize: 4,
     currentPage: 1,
+    sortColumn: { path: "title", order: "asc" },
   };
   componentDidMount() {
-    const genres = [{ name: "All Genre" }, ...getGenres()];
+    const genres = [{ _id: "", name: "All Genre" }, ...getGenres()];
     this.setState({ movies: getMovies(), genres });
   }
   handleLikeClick = (movie) => {
@@ -38,6 +40,9 @@ class Movies extends Component {
 
     this.setState({ movies: getMovies(), count: getMovies().length });
   };
+  handleSort = (sortColumn) => {
+    this.setState({ sortColumn });
+  };
 
   render() {
     const {
@@ -47,13 +52,15 @@ class Movies extends Component {
       currentPage,
       pageSize,
       genres,
+      sortColumn,
     } = this.state;
     if (count === 0) return "No movies in the database..!!";
     const filtered =
       selectedGenre && selectedGenre._id
         ? movies.filter((m) => m.genre._id === selectedGenre._id)
         : movies;
-    const moviesPaged = paginate(filtered, currentPage, pageSize);
+    const sorted = _.orderBy(filtered, [sortColumn.path], [sortColumn.order]);
+    const moviesPaged = paginate(sorted, currentPage, pageSize);
     return (
       <div>
         <div className="row">
@@ -65,16 +72,18 @@ class Movies extends Component {
             />
           </div>
           <div className="col">
-            <p>
+            <h4>
               Number Of Movies in stock{" "}
               <span className="badge badge-success text-dark">
-                <h4>{filtered.length}</h4>
+                {filtered.length}
               </span>
-            </p>
+            </h4>
             <MoviesTable
               movies={moviesPaged}
               onLike={this.handleLikeClick}
               onDelete={this.deleteMovie}
+              onSort={this.handleSort}
+              sortColumn={sortColumn}
             />
 
             <Pagination
