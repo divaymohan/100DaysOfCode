@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Like from "./common/like";
+import TableBody from "./common/tableBody";
 class MoviesTable extends Component {
   state = {
     columns: [
@@ -72,7 +73,13 @@ class MoviesTable extends Component {
             <th scope="col"></th>
           </tr>
         </thead>
-        <tbody>
+        <TableBody
+          items={movies}
+          columns={this.state.columns}
+          onLike={onLike}
+          onDelete={onDelete}
+        />
+        {/* <tbody>
           {movies.map((movie) => (
             <tr key={movie._id}>
               <td>{movie.title}</td>
@@ -92,7 +99,7 @@ class MoviesTable extends Component {
               </td>
             </tr>
           ))}
-        </tbody>
+        </tbody> */}
       </table>
     );
   }

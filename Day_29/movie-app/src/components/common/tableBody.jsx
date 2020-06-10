@@ -1,9 +1,25 @@
 import React, { Component } from "react";
+import _ from "lodash";
 
 class TableBody extends Component {
   state = {};
+  renderCell = (item, column) => {
+    if (column.content) return column.content;
+    return _.get(item, column.path);
+  };
   render() {
-    return <React.Fragment></React.Fragment>;
+    const { items, columns } = this.props;
+    return (
+      <tbody>
+        {items.map((item) => {
+          <tr>
+            {columns.map((column) => {
+              <td>{this.renderCell(item, column)}</td>;
+            })}
+          </tr>;
+        })}
+      </tbody>
+    );
   }
 }
 
