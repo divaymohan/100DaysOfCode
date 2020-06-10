@@ -11,11 +11,13 @@ class MoviesTable extends Component {
       { path: "numberInStock", label: "Stocks" },
       { path: "dailyRentalRate", label: "Rate" },
       {
+        key: "like",
         content: (movie) => (
           <Like liked={movie.liked} onClick={() => this.props.onLike(movie)} />
         ),
       },
       {
+        key: "Delete",
         content: (movie) => (
           <button
             onClick={() => this.props.onDelete(movie._id)}
