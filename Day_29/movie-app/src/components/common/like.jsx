@@ -1,5 +1,5 @@
 import React from "react";
-
+//interface
 //input: liked: bool
 //Output: onClickEvent
 const Like = (props) => {
