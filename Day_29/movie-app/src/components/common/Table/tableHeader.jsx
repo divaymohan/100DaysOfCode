@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 
 class TableHeader extends Component {
-  state = {};
   renderIcon = (column) => {
     const { sortColumn } = this.props;
     if (column.path !== sortColumn.path) return null;
