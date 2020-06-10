@@ -2,6 +2,12 @@ import React, { Component } from "react";
 
 class TableHeader extends Component {
   state = {};
+  renderIcon = (column) => {
+    const { sortColumn } = this.props;
+    if (column.path !== sortColumn.path) return null;
+    if (sortColumn.order === "asc") return <i className="fa fa-sort-asc"></i>;
+    return <i className="fa fa-sort-desc"></i>;
+  };
   raiseSort = (path) => {
     const sortColumn = { ...this.props.sortColumn };
     if (sortColumn.path === path) {
@@ -25,6 +31,7 @@ class TableHeader extends Component {
               style={{ cursor: "pointer" }}
             >
               {column.label}
+              {this.renderIcon(column)}
             </th>
           ))}
         </tr>
