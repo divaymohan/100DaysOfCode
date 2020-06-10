@@ -1,6 +1,29 @@
 import React, { Component } from "react";
 import Like from "./common/like";
 class MoviesTable extends Component {
+  state = {
+    columns: [
+      { path: "title", label: "Title" },
+      { path: "genre.name", label: "Genre" },
+      { path: "numberInStock", label: "Stocks" },
+      { path: "dailyRentalRate", label: "Rate" },
+      {
+        content: (movie) => (
+          <Like liked={movie.liked} onClick={() => this.props.onLike(movie)} />
+        ),
+      },
+      {
+        content: (movie) => (
+          <button
+            onClick={() => this.props.onDelete(movie._id)}
+            className="btn btn-danger btn-sm"
+          >
+            Delete
+          </button>
+        ),
+      },
+    ],
+  };
   raiseSort = (path) => {
     const sortColumn = { ...this.props.sortColumn };
     if (sortColumn.path === path) {
