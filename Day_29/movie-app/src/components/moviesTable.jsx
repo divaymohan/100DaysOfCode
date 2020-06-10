@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import Like from "./common/like";
 import TableBody from "./common/tableBody";
+import TableHeader from "./common/tableHeader";
+
 class MoviesTable extends Component {
   state = {
     columns: [
@@ -25,21 +27,17 @@ class MoviesTable extends Component {
       },
     ],
   };
-  raiseSort = (path) => {
-    const sortColumn = { ...this.props.sortColumn };
-    if (sortColumn.path === path) {
-      sortColumn.order = sortColumn.order === "asc" ? "desc" : "asc";
-    } else {
-      sortColumn.path = path;
-      sortColumn.order = "asc";
-    }
-    this.props.onSort(sortColumn);
-  };
+
   render() {
-    const { movies, onLike, onDelete } = this.props;
+    const { movies, onLike, onDelete, onSort, sortColumn } = this.props;
     return (
       <table className="table">
-        <thead>
+        <TableHeader
+          columns={this.state.columns}
+          onSort={onSort}
+          sortColumn={sortColumn}
+        />
+        {/* <thead>
           <tr>
             <th
               onClick={() => this.raiseSort("title")}
@@ -72,7 +70,7 @@ class MoviesTable extends Component {
             <th scope="col"></th>
             <th scope="col"></th>
           </tr>
-        </thead>
+        </thead> */}
         <TableBody
           items={movies}
           columns={this.state.columns}
