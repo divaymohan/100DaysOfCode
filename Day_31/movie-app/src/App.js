@@ -1,11 +1,17 @@
 import React from "react";
 import "./App.css";
-import Movies from "./components/movies";
 import NavBar from "./components/navBar";
+import { Route, Redirect, Switch } from "react-router-dom";
+import MoviesTable from "./components/moviesTable";
+import Customer from "./components/customer";
+import Movie from "./components/movie";
+import About from "./components/about";
+import NotFound from "./components/notFound";
+import Movies from "./components/movies";
 
 function App() {
   return (
-    <React.Fragment>
+    <div>
       <NavBar />
       <main className="container">
         <h1>
@@ -13,7 +19,17 @@ function App() {
         </h1>
         <Movies />
       </main>
-    </React.Fragment>
+
+      <Switch>
+        <Redirect from="/" to="/movies" />
+        <Route path="/movies/:id" component={Movie} />
+        <Route path="/movies" component={MoviesTable} />
+        <Route path="/customer" component={Customer} />
+        <Route path="/about" component={About} />
+        <Route path="/not-found" component={NotFound} />
+        <Redirect to="/not-found"></Redirect>
+      </Switch>
+    </div>
   );
 }
 
