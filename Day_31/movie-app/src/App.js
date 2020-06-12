@@ -11,9 +11,9 @@ import Rentals from "./components/rentals";
 
 function App() {
   return (
-    <div>
-      <div className="container">
-        <NavBar />
+    <React.Fragment>
+      <NavBar />
+      <main className="container">
         <Switch>
           <Route path="/movies/:id" component={Movie} />
           <Route path="/rentals" component={Rentals} />
@@ -24,8 +24,8 @@ function App() {
           <Redirect from="/" to="/movies" exact></Redirect>
           <Redirect to="/not-found"></Redirect>
         </Switch>
-      </div>
-    </div>
+      </main>
+    </React.Fragment>
   );
 }
 
