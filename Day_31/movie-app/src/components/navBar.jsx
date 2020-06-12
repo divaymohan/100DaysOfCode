@@ -5,29 +5,36 @@ class NavBar extends Component {
   state = {};
   render() {
     return (
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <h1>
-          <span className="badge badge-dark text-success">movie app</span>
-        </h1>
-
-        <div>
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <NavLink class="nav-link" to="/">
-                Movies
-              </NavLink>
-            </li>
-            <li class="nav-item">
-              <NavLink class="nav-link" to="/customer">
-                Customer
-              </NavLink>
-            </li>
-            <li class="nav-item">
-              <NavLink class="nav-link" to="/about">
-                About
-              </NavLink>
-            </li>
-          </ul>
+      <nav className="navbar navbar-expand-lg navbar-light bg-light">
+        <NavLink className="navbar-brand" to="#">
+          MovieApp
+        </NavLink>
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarNavAltMarkup"
+          aria-controls="navbarNavAltMarkup"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span className="navbar-toggler-icon"></span>
+        </button>
+        <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div className="navbar-nav">
+            <NavLink className="nav-item nav-link" to="/movies">
+              Movies
+            </NavLink>
+            <NavLink className="nav-item nav-link" to="/customer">
+              Customers
+            </NavLink>
+            <NavLink className="nav-item nav-link" to="/rentals">
+              Rentals
+            </NavLink>
+            <NavLink className="nav-item nav-link disabled" to="/about">
+              About
+            </NavLink>
+          </div>
         </div>
       </nav>
     );
