@@ -6,25 +6,15 @@ class NavBar extends Component {
   render() {
     return (
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <Link class="navbar-brand" to="#">
-          Movies App
-        </Link>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-toggle="collapse"
-          data-target="#navbarNav"
-          aria-controls="navbarNav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
+        <h1>
+          <span className="badge badge-dark text-success">movie app</span>
+        </h1>
+
+        <div>
           <ul class="navbar-nav">
-            <li class="nav-item active">
+            <li class="nav-item">
               <NavLink class="nav-link" to="/">
-                Movies <span class="sr-only">(current)</span>
+                Movies
               </NavLink>
             </li>
             <li class="nav-item">
