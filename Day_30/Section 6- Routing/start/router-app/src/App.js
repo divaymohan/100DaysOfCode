@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import NavBar from "./components/navbar";
-import { Route } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import Products from "./components/products";
 import Posts from "./components/posts";
 import Home from "./components/home";
@@ -15,11 +15,16 @@ class App extends Component {
       <div>
         Home
         <NavBar />
-        <Route path={"/"} component={Home} />
-        <Route path={"/Products"} component={Products} />
-        <Route path={"/Posts"} component={Posts} />
-        <Route path={"/admin"} component={Dashboard} />
-        <Route path={"/ProductDetails"} component={ProductDetails} />
+        <Switch>
+          <Route
+            path={"/Products"}
+            render={(props) => <Products sortBy={"newest"} {...props} />}
+          />
+          <Route path={"/Posts"} component={Posts} />
+          <Route path={"/admin"} component={Dashboard} />
+          <Route path={"/ProductDetails"} component={ProductDetails} />
+          <Route path={"/"} component={Home} />
+        </Switch>
       </div>
     );
   }
