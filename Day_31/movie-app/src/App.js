@@ -3,7 +3,7 @@ import "./App.css";
 import NavBar from "./components/navBar";
 import { Route, Redirect, Switch } from "react-router-dom";
 import Customer from "./components/customer";
-import Movie from "./components/movie";
+import Movie from "./components/movieDetails";
 import About from "./components/about";
 import NotFound from "./components/notFound";
 import Movies from "./components/movies";
