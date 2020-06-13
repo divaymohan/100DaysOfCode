@@ -1,19 +1,34 @@
 import React, { Component } from "react";
 
 class LoginForm extends Component {
-  state = {};
+  state = {
+    account: { username: "", password: "" },
+  };
+  handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(this.state.account);
+    console.log("submitted");
+  };
+  hanleChange = (e) => {
+    const account = { ...this.state.account };
+    account[e.currentTarget.name] = e.currentTarget.value;
+    this.setState({ account });
+  };
   render() {
+    const { account } = this.state;
     return (
-      <div className="container">
+      <div className="container py-5">
         <h1>Login</h1>
-        <form action="">
-          <div className="form-group">
+        <form onSubmit={this.handleSubmit} className="col-md-6">
+          <div className="form-group ">
             <label htmlFor="username">Username</label>
             <input
               name="username"
+              onChange={this.hanleChange}
               id="username"
+              value={account.userName}
               type="text"
-              className="form-control"
+              className="form-control autoFocus"
             />
           </div>
           <div className="form-group">
@@ -21,10 +36,15 @@ class LoginForm extends Component {
             <input
               name="password"
               id="password"
+              onChange={this.hanleChange}
+              value={account.password}
               type="text"
               className="form-control"
             />
           </div>
+          <button type="submit" className="btn btn-primary">
+            Login
+          </button>
         </form>
       </div>
     );
