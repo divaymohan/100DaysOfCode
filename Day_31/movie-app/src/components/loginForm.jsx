@@ -6,8 +6,6 @@ class LoginForm extends Component {
   };
   handleSubmit = (e) => {
     e.preventDefault();
-    console.log(this.state.account);
-    console.log("submitted");
   };
   hanleChange = (e) => {
     const account = { ...this.state.account };
